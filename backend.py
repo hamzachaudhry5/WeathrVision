@@ -1,5 +1,4 @@
 
-# backend.py
 import requests
 import os
 from dotenv import load_dotenv
@@ -18,13 +17,16 @@ def get_weather_data(place, forecast_days=None):
 
     if db_data:
         return db_data
-
+        
+ # Make a GET request to the API and retrieve JSON data
     url = f"https://api.openweathermap.org/data/2.5/forecast?q={place}&appid={API_KEY}"
     response = requests.get(url)
     data = response.json()
+    
+ #Filter data received depending on forecast_days input
     filtered_data = data["list"]
-    nr_values = 8 * forecast_days
-    filtered_data = filtered_data[:nr_values]
+    nb_values = 8 * forecast_days
+    filtered_data = filtered_data[:nb_values]
 
     # Transform and add the API data to the database
     for record in filtered_data:
