@@ -13,14 +13,17 @@ st.subheader(f"{option} for the next {days} days in {place}")
 #When user loads, nothing will be printed
 if place:
     filtered_data = get_weather_data(place,days)
-
+  
+    #If user chooses Temperature, display graph
     if option == "Temperature":
         temperatures = [dict["main"]["temp"] for dict in filtered_data]
         dates = [dict["dt_txt"] for dict in filtered_data]
+      
          #Create the temperature plot
         figure = px.line(x= dates, y = temperatures, labels = {"x": "Date","y" : "Temperature (C)"})
         st.plotly_chart(figure)
-
+      
+    #If user chooses Sky, show images
     if option == 'Sky':
         images = {"Clear": "images/clear.png", "Clouds": "images/cloud.png",
                   "Rain": "images/rain.png", "Snow": "images/snow.png"}
